@@ -38,32 +38,6 @@ const Index = () => {
         <div className="mt-6">
           <PlayerStats players={topPlayers} />
         </div>
-
-        <div className="mt-10 bg-field-light p-6 rounded-lg">
-          <h2 className="text-xl font-bold text-white mb-4">Technical Features</h2>
-          <ul className="space-y-3 text-muted-foreground">
-            <li className="flex items-start">
-              <span className="text-highlight mr-2">•</span>
-              <span>Predictive model using Python, scikit-learn, and Flask forecasting points from 10,000+ weekly player data points</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-highlight mr-2">•</span>
-              <span>20% improved model accuracy compared to baseline regressors</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-highlight mr-2">•</span>
-              <span>Automated data pipeline (Requests, BeautifulSoup) for real-time data scraping, reducing manual overhead by 75%</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-highlight mr-2">•</span>
-              <span>Containerized application using Docker with GitHub Actions CI/CD and >90% test coverage</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-highlight mr-2">•</span>
-              <span>Live stats tracking with &lt;1h deploys and 90%+ test coverage</span>
-            </li>
-          </ul>
-        </div>
       </main>
       
       <footer className="bg-field py-4 mt-10">

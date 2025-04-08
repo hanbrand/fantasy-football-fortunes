@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Trophy, Crown, UserCircle } from "lucide-react";
+import { Trophy, Crown, UserCircle, BarChart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -16,6 +16,12 @@ const Navbar = () => {
           <Link to="/predictions">
             <Button variant="ghost" className="text-white hover:text-highlight hover:bg-field-light">
               Predictions
+            </Button>
+          </Link>
+          <Link to="/live-stats">
+            <Button variant="ghost" className="text-white hover:text-highlight hover:bg-field-light">
+              <BarChart size={18} className="mr-1" />
+              Live Stats
             </Button>
           </Link>
           <Link to="/leaderboard">
