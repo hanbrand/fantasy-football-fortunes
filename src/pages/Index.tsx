@@ -22,7 +22,7 @@ const Index = () => {
           </div>
           <h1 className="text-3xl font-bold text-white mb-2">Fantasy Football Predictor</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Advanced ML-powered predictions for fantasy football using Python, scikit-learn, and real-time data processing.
+            Make smarter fantasy decisions with AI-powered predictions and real-time data analysis.
           </p>
         </header>
         

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import LiveStats from "@/components/stats/LiveStats";
+import NewsScrapingPanel from "@/components/stats/NewsScrapingPanel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Database, LineChart, BarChart } from "lucide-react";
@@ -16,41 +17,49 @@ const LiveStatsPage = () => {
       <main className="container mx-auto px-4 py-6">
         <h1 className="text-2xl font-bold text-white mb-6">Live Player Statistics</h1>
         
-        <Card className="border-highlight/20 mb-6">
-          <CardHeader className="bg-field-light rounded-t-lg">
-            <CardTitle className="text-white">Data Pipeline Stats</CardTitle>
-          </CardHeader>
-          <CardContent className="p-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-              <div className="bg-field-light p-4 rounded-lg">
-                <p className="text-muted-foreground text-sm">Data Sources</p>
-                <div className="flex items-end justify-between">
-                  <h3 className="text-2xl font-bold text-white">7</h3>
-                  <Database className="h-5 w-5 text-highlight" />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <div className="lg:col-span-2">
+            <Card className="border-highlight/20">
+              <CardHeader className="bg-field-light rounded-t-lg">
+                <CardTitle className="text-white">Data Pipeline Stats</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                  <div className="bg-field-light p-4 rounded-lg">
+                    <p className="text-muted-foreground text-sm">Data Sources</p>
+                    <div className="flex items-end justify-between">
+                      <h3 className="text-2xl font-bold text-white">7</h3>
+                      <Database className="h-5 w-5 text-highlight" />
+                    </div>
+                  </div>
+                  <div className="bg-field-light p-4 rounded-lg">
+                    <p className="text-muted-foreground text-sm">Processing Time</p>
+                    <div className="flex items-end justify-between">
+                      <h3 className="text-2xl font-bold text-white">3.2s</h3>
+                      <LineChart className="h-5 w-5 text-highlight" />
+                    </div>
+                  </div>
+                  <div className="bg-field-light p-4 rounded-lg">
+                    <p className="text-muted-foreground text-sm">Model Accuracy</p>
+                    <div className="flex items-end justify-between">
+                      <h3 className="text-2xl font-bold text-white">92%</h3>
+                      <BarChart className="h-5 w-5 text-highlight" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-field-light p-4 rounded-lg">
-                <p className="text-muted-foreground text-sm">Processing Time</p>
-                <div className="flex items-end justify-between">
-                  <h3 className="text-2xl font-bold text-white">3.2s</h3>
-                  <LineChart className="h-5 w-5 text-highlight" />
-                </div>
-              </div>
-              <div className="bg-field-light p-4 rounded-lg">
-                <p className="text-muted-foreground text-sm">Model Accuracy</p>
-                <div className="flex items-end justify-between">
-                  <h3 className="text-2xl font-bold text-white">92%</h3>
-                  <BarChart className="h-5 w-5 text-highlight" />
-                </div>
-              </div>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Our automated data pipeline collects real-time player statistics from multiple sources,
-              processes the data through our machine learning model, and generates accurate predictions
-              with minimal latency.
-            </p>
-          </CardContent>
-        </Card>
+                <p className="text-sm text-muted-foreground">
+                  Our automated data pipeline collects real-time player statistics from multiple sources,
+                  processes the data through our machine learning model, and generates accurate predictions
+                  with minimal latency.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <div className="lg:col-span-1">
+            <NewsScrapingPanel />
+          </div>
+        </div>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
           <TabsList className="w-full bg-muted mb-4">
