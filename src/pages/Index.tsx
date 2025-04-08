@@ -4,7 +4,7 @@ import UpcomingGames from "@/components/dashboard/UpcomingGames";
 import PlayerStats from "@/components/dashboard/PlayerStats";
 import PredictionSummary from "@/components/dashboard/PredictionSummary";
 import { getUpcomingGames, getTopPlayers, getUserPredictions } from "@/services/mockData";
-import { Football } from "lucide-react";
+import { Trophy } from "lucide-react";
 
 const Index = () => {
   const upcomingGames = getUpcomingGames();
@@ -18,11 +18,11 @@ const Index = () => {
       <main className="container mx-auto px-4 py-6">
         <header className="mb-8 text-center">
           <div className="inline-block p-3 rounded-full bg-field-light mb-4">
-            <Football size={32} className="text-highlight animate-pulse-light" />
+            <Trophy size={32} className="text-highlight animate-pulse-light" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Fantasy Footy Fortune</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Fantasy Football Predictor</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Make predictions on NFL games, track player stats, and compete with others to prove your football knowledge!
+            Advanced ML-powered predictions for fantasy football using Python, scikit-learn, and real-time data processing.
           </p>
         </header>
         
@@ -38,11 +38,37 @@ const Index = () => {
         <div className="mt-6">
           <PlayerStats players={topPlayers} />
         </div>
+
+        <div className="mt-10 bg-field-light p-6 rounded-lg">
+          <h2 className="text-xl font-bold text-white mb-4">Technical Features</h2>
+          <ul className="space-y-3 text-muted-foreground">
+            <li className="flex items-start">
+              <span className="text-highlight mr-2">•</span>
+              <span>Predictive model using Python, scikit-learn, and Flask forecasting points from 10,000+ weekly player data points</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-highlight mr-2">•</span>
+              <span>20% improved model accuracy compared to baseline regressors</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-highlight mr-2">•</span>
+              <span>Automated data pipeline (Requests, BeautifulSoup) for real-time data scraping, reducing manual overhead by 75%</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-highlight mr-2">•</span>
+              <span>Containerized application using Docker with GitHub Actions CI/CD and >90% test coverage</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-highlight mr-2">•</span>
+              <span>Live stats tracking with &lt;1h deploys and 90%+ test coverage</span>
+            </li>
+          </ul>
+        </div>
       </main>
       
       <footer className="bg-field py-4 mt-10">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>© 2025 Fantasy Footy Fortune. All NFL team names and logos are registered trademarks of the NFL.</p>
+          <p>© 2024 Fantasy Football Predictor. All NFL team names and logos are registered trademarks of the NFL.</p>
         </div>
       </footer>
     </div>

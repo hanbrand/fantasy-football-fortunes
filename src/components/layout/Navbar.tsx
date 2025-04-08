@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Football, Crown, UserCircle } from "lucide-react";
+import { Trophy, Crown, UserCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -8,8 +8,8 @@ const Navbar = () => {
     <nav className="bg-field shadow-md py-3">
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <Football size={28} className="text-highlight" />
-          <span className="text-xl font-bold text-white">Fantasy Footy Fortune</span>
+          <Trophy size={28} className="text-highlight" />
+          <span className="text-xl font-bold text-white">Fantasy Football Predictor</span>
         </Link>
         
         <div className="flex items-center space-x-4">
