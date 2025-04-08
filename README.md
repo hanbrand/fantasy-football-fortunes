@@ -1,73 +1,60 @@
-# Welcome to your Lovable project
+🏈 Features
 
-## Project info
+    AI-Powered Predictions: Get accurate game and player performance predictions based on historical data and advanced statistical models.
+    Live Game Stats: View real-time player statistics and performance metrics during games.
+    News Scraping: Automatically collects and analyzes news from multiple sources to inform predictions.
+    Social Media Sentiment Analysis: Gauge public opinion and trending discussions about players and teams.
+    User Prediction Dashboard: Track your prediction history and success rate over time.
+    Interactive Leaderboard: Compete with other users to see who has the most accurate predictions.
+    Responsive Design: Fully optimized for both desktop and mobile devices.
 
-**URL**: https://lovable.dev/projects/3952e754-6ea4-41e6-a8d5-42f060fd451b
+🔧 Technology Stack
 
-## How can I edit this code?
+    Frontend: React, TypeScript, Tailwind CSS
+    UI Components: shadcn/ui
+    State Management: TanStack React Query
+    Data Visualization: Recharts
+    Icons: Lucide React
+    Notifications: Sonner Toast
 
-There are several ways of editing your application.
+📊 Data Pipeline
 
-**Use Lovable**
+The application features a sophisticated data pipeline that:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3952e754-6ea4-41e6-a8d5-42f060fd451b) and start prompting.
+    Collects Data: Scrapes multiple data sources for player statistics, team news, and expert opinions.
+    Processes Information: Cleans and normalizes the data for consistent analysis.
+    Applies ML Models: Runs the processed data through machine learning models to generate predictions.
+    Delivers Insights: Presents actionable insights through an intuitive user interface.
 
-Changes made via Lovable will be committed automatically to this repo.
+🚀 Getting Started
 
-**Use your preferred IDE**
+# Clone the repository
+git clone https://github.com/yourusername/fantasy-football-predictor.git
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+# Navigate to the project directory
+cd fantasy-football-predictor
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+# Install dependencies
+npm install
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the development server
 npm run dev
-```
 
-**Edit a file directly in GitHub**
+📱 Screenshots
+<div style="display: flex; justify-content: space-between;"> <img src="https://example.com/screenshot1.png" width="30%" alt="Dashboard" /> <img src="https://example.com/screenshot2.png" width="30%" alt="Live Stats" /> <img src="https://example.com/screenshot3.png" width="30%" alt="Predictions" /> </div>
+📝 License
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+This project is licensed under the MIT License - see the LICENSE file for details.
+🤝 Contributing
 
-**Use GitHub Codespaces**
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+    Fork the repository
+    Create your feature branch (git checkout -b feature/amazing-feature)
+    Commit your changes (git commit -m 'Add some amazing feature')
+    Push to the branch (git push origin feature/amazing-feature)
+    Open a Pull Request
 
-## What technologies are used for this project?
+📬 Contact
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/3952e754-6ea4-41e6-a8d5-42f060fd451b) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+If you have any questions or suggestions, please open an issue or contact the repository owner.
