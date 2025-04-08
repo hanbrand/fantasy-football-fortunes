@@ -1,4 +1,6 @@
 
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -6,19 +8,49 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { getUpcomingGames } from "@/services/mockData";
-import { useState } from "react";
+import { getUpcomingGames, getTopPlayers } from "@/services/mockData";
 import { toast } from "sonner";
+import { scrapeGameImages } from "@/services/scrapingService";
+import ScrapedImage from "@/components/common/ScrapedImage";
 
 const Predictions = () => {
+  const params = useParams();
   const upcomingGames = getUpcomingGames();
-  const [selectedGameId, setSelectedGameId] = useState<string | null>(null);
+  const [selectedGameId, setSelectedGameId] = useState<string | null>(params.gameId || null);
   const [predictionType, setPredictionType] = useState("spread");
   const [spreadPrediction, setSpreadPrediction] = useState<"home" | "away" | null>(null);
   const [overUnderValue, setOverUnderValue] = useState(47.5);
   const [overUnderPrediction, setOverUnderPrediction] = useState<"over" | "under" | null>(null);
+  const [gameImage, setGameImage] = useState<{ url: string; alt: string } | null>(null);
+  const [loadingImage, setLoadingImage] = useState(false);
 
   const selectedGame = upcomingGames.find(game => game.id === selectedGameId);
+
+  useEffect(() => {
+    // Fetch game image when a game is selected
+    const fetchGameImage = async () => {
+      if (!selectedGame) return;
+      
+      setLoadingImage(true);
+      try {
+        const images = await scrapeGameImages(selectedGame.homeTeam, selectedGame.awayTeam);
+        if (images.length > 0) {
+          setGameImage({
+            url: images[0].url,
+            alt: images[0].alt
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching game image:", error);
+      } finally {
+        setLoadingImage(false);
+      }
+    };
+    
+    if (selectedGame) {
+      fetchGameImage();
+    }
+  }, [selectedGame]);
 
   const handleSubmitPrediction = () => {
     if (!selectedGame) {
@@ -54,6 +86,7 @@ const Predictions = () => {
     setSelectedGameId(null);
     setSpreadPrediction(null);
     setOverUnderPrediction(null);
+    setGameImage(null);
   };
 
   return (
@@ -110,12 +143,24 @@ const Predictions = () => {
                 ) : (
                   <div>
                     <div className="mb-6">
-                      <h2 className="text-xl font-semibold text-white mb-2">
-                        {selectedGame.awayTeam} @ {selectedGame.homeTeam}
-                      </h2>
-                      <p className="text-muted-foreground">
-                        {selectedGame.date} • {selectedGame.time}
-                      </p>
+                      <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
+                        {gameImage && (
+                          <ScrapedImage 
+                            src={gameImage.url} 
+                            alt={gameImage.alt}
+                            size="xl"
+                            className="rounded-lg overflow-hidden"
+                          />
+                        )}
+                        <div>
+                          <h2 className="text-xl font-semibold text-white mb-2">
+                            {selectedGame.awayTeam} @ {selectedGame.homeTeam}
+                          </h2>
+                          <p className="text-muted-foreground">
+                            {selectedGame.date} • {selectedGame.time}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                     
                     <Tabs defaultValue="spread" onValueChange={(value) => setPredictionType(value)}>

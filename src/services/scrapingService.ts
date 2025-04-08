@@ -1,4 +1,3 @@
-
 /**
  * Service for scraping news and internet data
  * In a production environment, this would connect to a backend service
@@ -17,13 +16,28 @@ interface ScrapedArticle {
   relevance: number;
 }
 
+interface ScrapedImage {
+  id: string;
+  url: string;
+  alt: string;
+  width: number;
+  height: number;
+  source: string;
+  license?: string;
+}
+
 interface ScrapedData {
   articles: ScrapedArticle[];
   lastUpdated: Date;
 }
 
+interface ScrapedImageData {
+  images: ScrapedImage[];
+  lastUpdated: Date;
+}
+
 // Simulated cache for API responses
-const scrapingCache: Record<string, { data: ScrapedData; timestamp: number }> = {};
+const scrapingCache: Record<string, { data: any; timestamp: number }> = {};
 
 // Configuration
 const CACHE_TIME = 15 * 60 * 1000; // 15 minutes
@@ -175,25 +189,112 @@ export async function scrapeSocialSentiment(query: string): Promise<{ score: num
 }
 
 /**
+ * Scrapes images related to a player or team
+ */
+export async function scrapeImages(
+  query: string,
+  options: { refresh?: boolean; limit?: number; type?: 'player' | 'team' | 'game' } = {}
+): Promise<ScrapedImage[]> {
+  const { refresh = false, limit = 5, type = 'player' } = options;
+  const cacheKey = `images_${type}_${query}`;
+  const now = Date.now();
+  
+  // Return cached data if available and not expired
+  if (!refresh && 
+      scrapingCache[cacheKey] && 
+      now - scrapingCache[cacheKey].timestamp < CACHE_TIME) {
+    console.log(`Returning cached images for "${query}"`);
+    return scrapingCache[cacheKey].data.images.slice(0, limit);
+  }
+  
+  console.log(`Scraping fresh images for "${query}" (${type})`);
+  
+  try {
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    
+    // In a real implementation, this would call a backend service that uses:
+    // - Google Images Search API
+    // - Bing Image Search API
+    // - Sports-specific image repositories via web scraping
+    // - Image attribution and licensing detection
+    
+    // Base image URLs - in a real implementation these would be actual scraped images
+    const baseUrls = [
+      "https://images.unsplash.com/photo-1566577739112-5180d4bf9390",
+      "https://images.unsplash.com/photo-1560272564-c83b66b1ad12",
+      "https://images.unsplash.com/photo-1579952363873-27f3bade9f55",
+      "https://images.unsplash.com/photo-1566577134770-3d85bb3a9cc4",
+      "https://images.unsplash.com/photo-1611887417688-44330203838e",
+      "https://images.unsplash.com/photo-1610812387871-fd350460c33c",
+      "https://images.unsplash.com/photo-1631116616801-2c502a6bf695",
+      "https://images.unsplash.com/photo-1567176013487-70df273f6fc1",
+    ];
+    
+    // Generate simulated images relevant to the query and type
+    const images: ScrapedImage[] = [];
+    
+    for (let i = 0; i < Math.min(baseUrls.length, limit + 3); i++) {
+      // Add some randomization to make it look more realistic
+      const randomWidth = 800 + Math.floor(Math.random() * 400);
+      const randomHeight = 600 + Math.floor(Math.random() * 300);
+      
+      let imageDetails: ScrapedImage = {
+        id: `img-${type}-${i}`,
+        url: `${baseUrls[i % baseUrls.length]}?q=${encodeURIComponent(query)}`,
+        alt: `${query} ${type === 'player' ? 'football player' : type === 'team' ? 'football team' : 'football game'}`,
+        width: randomWidth,
+        height: randomHeight,
+        source: "Sports Images Database",
+        license: "Editorial Use Only"
+      };
+      
+      images.push(imageDetails);
+    }
+    
+    // Sort by most relevant/appealing (in a real implementation this would use more complex criteria)
+    const sortedImages = images.sort(() => Math.random() - 0.5);
+    
+    // Cache the results
+    scrapingCache[cacheKey] = {
+      data: { 
+        images: sortedImages,
+        lastUpdated: new Date()
+      },
+      timestamp: now
+    };
+    
+    return sortedImages.slice(0, limit);
+  } catch (error) {
+    console.error(`Error scraping images for "${query}":`, error);
+    toast.error("Failed to retrieve images");
+    return [];
+  }
+}
+
+/**
  * Combines multiple data sources to enrich player/team data
  */
 export async function enrichDataWithScrapedSources(query: string): Promise<{
   news: ScrapedArticle[];
   sentiment: { score: number; count: number; trending: boolean };
+  images: ScrapedImage[];
   lastUpdated: Date;
 }> {
   try {
     console.log(`Starting data enrichment for "${query}"`);
     
     // Run requests in parallel for better performance
-    const [news, sentiment] = await Promise.all([
+    const [news, sentiment, images] = await Promise.all([
       scrapeNewsArticles(query, { limit: 4 }),
-      scrapeSocialSentiment(query)
+      scrapeSocialSentiment(query),
+      scrapeImages(query, { limit: 2 })
     ]);
     
     return {
       news,
       sentiment,
+      images,
       lastUpdated: new Date()
     };
   } catch (error) {
@@ -202,7 +303,20 @@ export async function enrichDataWithScrapedSources(query: string): Promise<{
     return {
       news: [],
       sentiment: { score: 0.5, count: 0, trending: false },
+      images: [],
       lastUpdated: new Date()
     };
   }
+}
+
+/**
+ * Scrapes game preview images for upcoming games
+ */
+export async function scrapeGameImages(
+  homeTeam: string,
+  awayTeam: string,
+  options: { refresh?: boolean } = {}
+): Promise<ScrapedImage[]> {
+  const query = `${homeTeam} vs ${awayTeam}`;
+  return scrapeImages(query, { ...options, type: 'game', limit: 1 });
 }
